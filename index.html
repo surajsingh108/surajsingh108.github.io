@@ -99,7 +99,7 @@
   /* Proof strip */
   .proof {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -148,6 +148,37 @@
     font-size: 0.82rem;
     color: #9a9a9a;
     margin-top: 0.4rem;
+  }
+  .se3-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin: 0.4rem 0 1.2rem;
+    padding: 1rem;
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+  }
+  .se3-stats li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .se3-stats .stat-label {
+    font-size: 0.72rem;
+    color: #9a9a9a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .se3-stats strong {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #4ade80;
+    line-height: 1.1;
+  }
+  .se3-stats .stat-unit {
+    font-size: 0.76rem;
+    color: #9a9a9a;
   }
   .demo-frame {
     margin: 1rem 0 1.2rem;
@@ -225,6 +256,7 @@
     .hero { padding-top: 3rem; }
     section { padding: 2.5rem 0; }
     .proof { grid-template-columns: 1fr 1fr; }
+    .se3-stats { grid-template-columns: 1fr 1fr; }
     .skills-grid { grid-template-columns: 1fr; }
   }
 
@@ -270,7 +302,6 @@
     <p class="avail">Open to permanent roles in Stockholm. No sponsorship required.</p>
 
     <div class="actions">
-      <!-- cv.pdf is expected in the repo root. File currently missing, button still renders per spec. -->
       <a class="btn btn-primary" href="cv.pdf" download>Download CV</a>
       <a class="btn btn-secondary" href="mailto:ssingh.108@outlook.com">Email me</a>
       <a class="text-link" href="#se3">See the live SE3 demo</a>
@@ -284,10 +315,7 @@
 
   <ul class="proof reveal" aria-label="At a glance">
     <li>Live ML system in production on <strong>GCP</strong></li>
-    <!-- {{SE3_ACCURACY_CLAIM}}: replace with a real headline figure, e.g. "X% lower error than the Ridge baseline" -->
-    <li>Forecasts 24h ahead, <strong>{{SE3_ACCURACY_CLAIM}}</strong></li>
-    <!-- {{YEARS}}: years of production ML experience -->
-    <li><strong>{{YEARS}}</strong> yrs building production ML</li>
+    <li>Forecasts 24h ahead with <strong>p05/p50/p95 quantile bands</strong></li>
     <li>Stack: <strong>PyTorch, LightGBM, LangGraph, GCP</strong></li>
   </ul>
 
@@ -296,14 +324,21 @@
 
     <article id="se3" class="card featured reveal">
       <h3>SE3 Electricity Price Forecast</h3>
-      <!-- {{SE3_HEADLINE_RESULT}}: the one number that proves the model works. {{SE3_LATENCY}}: response time. -->
-      <p class="lead">End-to-end ML system that forecasts Swedish electricity prices (SE3 zone) 24 hours ahead. <strong>{{SE3_HEADLINE_RESULT}}</strong>, serving answers in under <strong>{{SE3_LATENCY}}</strong>.</p>
+      <p class="lead">End-to-end ML system that forecasts Swedish electricity prices (SE3 zone) 24 hours ahead with p05/p50/p95 quantile uncertainty bands.</p>
+
+      <ul class="se3-stats" aria-label="Live forecast snapshot from the dashboard">
+        <li><span class="stat-label">Avg forecast</span><strong>55.6</strong><span class="stat-unit">EUR/MWh</span></li>
+        <li><span class="stat-label">Peak (p50)</span><strong>82.6</strong><span class="stat-unit">at 07:00</span></li>
+        <li><span class="stat-label">Overnight low</span><strong>35.2</strong><span class="stat-unit">EUR/MWh, 00 to 05h</span></li>
+        <li><span class="stat-label">Uncertainty</span><strong>&plusmn;53.1</strong><span class="stat-unit">avg half-width EUR/MWh</span></li>
+      </ul>
+
       <p class="how muted">LightGBM quantile model (p05/p50/p95) with 78 engineered features. Hourly ingestion from ENTSO-E and Open-Meteo via Cloud Run Jobs, DuckDB on GCS, weekly retraining via Cloud Scheduler, MLflow for versioning. A LangGraph agent answers plain-English questions over the live data with cited sources.</p>
 
-      <!-- se3-demo.gif is expected in the repo root. File currently missing, placeholder rendered per spec. -->
-      <div class="demo-placeholder" role="img" aria-label="Demo GIF placeholder">
-        Add se3-demo.gif to show the live dashboard
-      </div>
+      <figure class="demo-frame">
+        <img src="se3-demo.gif" alt="SE3 electricity price forecast dashboard, live on GCP, showing 24h ahead quantile forecasts and the LangGraph agent answering a question over the data." loading="lazy" width="900">
+        <figcaption>SE3 dashboard, live on GCP</figcaption>
+      </figure>
 
       <ul class="tags" aria-label="Stack">
         <li>LightGBM</li><li>GCP</li><li>Cloud Run</li><li>DuckDB</li>
@@ -318,9 +353,8 @@
 
     <article class="card reveal">
       <h3>graph-rag-memory</h3>
-      <!-- {{GRAPHRAG_RESULT}}: e.g. retrieval quality lift or duplicate-write reduction -->
-      <p class="lead">Graph-augmented RAG memory system. <strong>{{GRAPHRAG_RESULT}}</strong>.</p>
-      <p class="how muted">Tiered source/derived memory on ChromaDB with decay-based compaction and write-time deduplication. NetworkX knowledge graph for multi-hop retrieval. Runs fully on a local LLM, no external APIs.</p>
+      <p class="lead">Graph-augmented RAG memory with knowledge-graph retrieval and write-time deduplication, running fully on a local LLM.</p>
+      <p class="how muted">Tiered source/derived memory on ChromaDB with decay-based compaction and write-time deduplication. NetworkX knowledge graph for multi-hop retrieval. No external APIs.</p>
       <ul class="tags" aria-label="Stack">
         <li>LangChain</li><li>ChromaDB</li><li>NetworkX</li><li>RAG</li>
         <li>Knowledge Graph</li><li>Local LLM</li>
@@ -344,8 +378,7 @@
 
     <article class="card reveal">
       <h3>Physics-Informed Neural Networks, Dynamic Line Rating</h3>
-      <!-- {{PINN_RESULT}}: operational impact statement for the ATO Energy work, cleared of anything confidential -->
-      <p class="lead">PINNs for real-time thermal modelling of high-voltage power lines at ATO Energy. <strong>{{PINN_RESULT}}</strong>.</p>
+      <p class="lead">PINNs for real-time thermal modelling of high-voltage power lines at ATO Energy.</p>
       <p class="how muted">Live sensor data drives the thermal model. Digital twins of grid components validate ML predictions against simulated physical ground truth.</p>
       <ul class="tags" aria-label="Stack">
         <li>PINNs</li><li>PyTorch</li><li>Digital Twins</li><li>Time Series</li>
