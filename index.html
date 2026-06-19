@@ -349,6 +349,16 @@
     </article>
 
     <article class="card reveal">
+      <h3>Neuro-Cinematic Homeostasis Engine</h3>
+      <p class="lead">A Chrome extension that predicts, in real time, whether you will finish a YouTube video — and retrains itself on every video you watch, entirely inside the browser.</p>
+      <p class="how">CLIP embeddings (image + text) measure how well the current frame matches the video title. Five behavioural signals — engagement score, seek-back rate, tab-hidden rate, long-pause rate, and visual-novelty — feed an online logistic regression model that updates its weights the moment you leave or finish a video. No server, no account, no data leaves the browser. I designed the feature engineering and the incremental learning loop; the ML workbench is a Python notebook for offline calibration and weight export.</p>
+      <ul class="tags" aria-label="Stack">
+        <li>CLIP</li><li>Online Learning</li><li>Logistic Regression</li><li>Feature Engineering</li><li>Python</li><li>Transformers.js</li><li>Chrome Extension</li>
+      </ul>
+      <p class="card-note">Personal research project. Code not public.</p>
+    </article>
+
+    <article class="card reveal">
       <h3>graph-rag-memory</h3>
       <p class="lead">A graph-augmented RAG memory system with knowledge-graph retrieval and write-time deduplication, running fully on a local LLM.</p>
       <p class="how">Tiered source and derived memory on ChromaDB with decay-based compaction and cosine plus novelty deduplication. NetworkX knowledge graph for multi-hop retrieval. No external APIs.</p>
