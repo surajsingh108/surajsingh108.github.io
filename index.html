@@ -349,6 +349,18 @@
     </article>
 
     <article class="card reveal">
+      <h3>Sagaspel-AI</h3>
+      <p class="lead">A narrative-driven interactive story engine where the player controls one character while AI-driven NPCs make independent decisions — all running on local LLMs, no cloud required.</p>
+      <p class="how">Two local models run in parallel: a lightweight SmolLM2 (360M) handles per-character NPC decisions each turn, while Mistral narrates outcomes and updates world state. A Graph-RAG memory layer gives each NPC isolated, decaying recall of past events — characters remember what they witnessed, not what others did. Story beats and endings are defined declaratively in YAML; a beat-detection system fires plot milestones when flag or trust conditions are met, with fallback triggers if the story stalls. Gemini can optionally replace Mistral for director narration via a config switch.</p>
+      <ul class="tags" aria-label="Stack">
+        <li>Local LLM</li><li>Ollama</li><li>Multi-agent</li><li>Graph-RAG</li><li>Mistral</li><li>Python</li>
+      </ul>
+      <div class="card-links">
+        <a href="https://github.com/surajsingh108/Sagaspel-ai" rel="noopener">View code on GitHub</a>
+      </div>
+    </article>
+
+    <article class="card reveal">
       <h3>Neuro-Cinematic Homeostasis Engine</h3>
       <p class="lead">A Chrome extension that predicts, in real time, whether you will finish a YouTube video — and retrains itself on every video you watch, entirely inside the browser.</p>
       <p class="how">CLIP embeddings (image + text) measure how well the current frame matches the video title. Five behavioural signals — engagement score, seek-back rate, tab-hidden rate, long-pause rate, and visual-novelty — feed an online logistic regression model that updates its weights the moment you leave or finish a video. No server, no account, no data leaves the browser. I designed the feature engineering and the incremental learning loop; the ML workbench is a Python notebook for offline calibration and weight export.</p>
